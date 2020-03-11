@@ -100,3 +100,6 @@ li {
 	background: grey;
 }
 
+#game_count {
+	max-width: 2rem;
+}

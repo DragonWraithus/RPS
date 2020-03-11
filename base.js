@@ -5,6 +5,10 @@
 const userImage = document.querySelector('#user_image');
 const compImage = document.querySelector('#comp_image');
 const reset = document.querySelector('#reset');
+const gameCount = document.querySelector('#game_count');
+const scoreBoard = document.querySelector('#result');
+const scoreHistory = document.querySelector('#winner_history');
+let gameLimit = document.querySelector('#limit_games');
 let player_choice;
 let score = {player: 0, computer: 0, tie: 0};
 
@@ -12,17 +16,15 @@ let score = {player: 0, computer: 0, tie: 0};
 /* VIEW */
 
 function addWinnerLi(winner) {
-	const scoreBody = document.querySelector('#winner_history');
 	const listItem = document.createElement('li');
 
 	listItem.textContent = `${winner}`;
 	listItem.setAttribute('class', 'former_winner');
 	listItem.setAttribute('id', winner);
-	scoreBody.appendChild(listItem);
+	scoreHistory.appendChild(listItem);
 }
 
 function updateImages(userPick, compPick) {
-
 	let imgDestination = './images/' + userPick.toLowerCase() + '.svg';
 	userImage.setAttribute('src', imgDestination);
 
@@ -30,21 +32,17 @@ function updateImages(userPick, compPick) {
 	compImage.setAttribute('src', imgDestination);
 }
 
-function clearScoreBoand() {
-	const scoreBody = document.querySelector('#winner_history');
+function clearScoreBoard() {
 	const winner_list = document.querySelectorAll('.former_winner');
-	const scoreBoard = document.querySelector('#result');
 	
 	updateImages('no_image.here', 'no_image.here');
 
-	winner_list.forEach( li => scoreBody.removeChild(li));
+	winner_list.forEach( li => scoreHistory.removeChild(li));
 
 	scoreBoard.textContent = `All at zero!`;
 }
 
 function updateScoreBoard(result) {
-	const scoreBoard = document.querySelector('#result');
-
 	scoreBoard.textContent = `
 		Player: ${score.player}\n
 		Computer ${score.computer}\n
@@ -67,7 +65,7 @@ playButtons.forEach(choice_btn => {
 
 reset.addEventListener('click', () => {
 	score = {player: 0, computer: 0, tie: 0};
-	clearScoreBoand();
+	clearScoreBoard();
 });
 
 // return randomly: rock, paper, or scissors.
@@ -129,4 +127,19 @@ function playGame(playerChoice, score) {
 	}
 
 	updateScoreBoard(result);
+
+	// BUGS: Does not clear score after victory or loss.
+	// * requires manual reset.
+	if (gameLimit.checked && 
+		(score.computer >= gameCount.value ||
+		score.player >= gameCount.value)) 
+	{
+		let [comp, user] = [score.computer, score.player]
+		score = {player: 0, computer: 0, tie: 0};
+		clearScoreBoard();
+		scoreBoard.textContent = score.computer < score.player ?
+			`You win! ${user}-${comp}` : 
+			`You lose! ${comp}-${user}`;
+
+	}
 }
