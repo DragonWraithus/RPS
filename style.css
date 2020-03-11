@@ -1,0 +1,76 @@
+body {
+	font-size: 16px;
+}
+
+.choice {
+	display: flex;
+	font-size: 1.2rem;
+	text-transform: uppercase;
+	letter-spacing: .1rem;
+	margin: 3rem;
+	width: 10rem;
+	height: 3rem;
+	justify-content: space-around;
+	align-items: center;
+	background-color: indigo;
+	color: pink;
+	box-shadow: .2rem .3rem .5rem .1rem grey;
+}
+
+.game_view {
+	display: flex;
+	align-items: center;
+	margin: 1rem;
+	justify-content: center;
+	align-self: center;
+	max-height: 30rem;
+}
+
+#reset {
+	display: flex;
+	background: yellowgreen;
+	margin: 1rem;
+	width: 8rem;
+	height: 3rem;
+	align-items: center;
+	justify-content: center;
+}
+
+p {
+	font-size: 1rem;
+}
+
+#winner_history {
+	display: flex;
+	flex-direction: row-reverse;
+	flex-wrap: wrap-reverse;
+	align-self: center;
+	justify-content: flex-end;
+
+	margin: auto;
+	border: .1rem solid black;
+	max-width: 80%;
+	min-height: 1rem;
+}
+
+li {
+	min-width: 5rem;
+	max-width: 5rem;
+	margin: .1rem;
+	display: flex;
+	justify-content: center;
+}
+
+#Player {
+	background: green;
+}
+
+#Computer {
+	background: red;
+}
+
+#Nobody {
+	color: white;
+	background: grey;
+}
+

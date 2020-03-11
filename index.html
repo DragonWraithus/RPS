@@ -2,19 +2,23 @@
 <html>
 	<meta charset="UTF-8"></meta>
 	<title>Rock Paper Sciscors</title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
 <head>
 </head>
 <body>
-	<h1>Play Game!</h1>
-	<p>What's your choice?<p>
-	<div class="gameView">
-		<input type="text" id="playerChoice">
-		<button id="getPlayerChoice">Play!</button>
+	<div class="game_view">
+		<h1 class="Title">Make your choice:<h1>
+		<button class="choice" id="rock">Rock</button>
+		<button class="choice" id="paper">Paper</button>
+		<button class="choice" id="scissors">Scissors</button>
 	</div>
 
 	<div id="gameScore">
-		<p id="result">The winner is:</p>
-
+		<h2>Score: </h2>
+		<p id="result"></p>
+		<button id="reset">Reset Score</button>
+		<h2>Winner History: </h2>
+		<div id='winner_history'></div>
 	</div>
 
 	<script src="base.js"></script>
