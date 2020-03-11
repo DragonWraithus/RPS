@@ -1,5 +1,7 @@
 body {
 	font-size: 16px;
+	display: flex;
+	flex-direction: column;
 }
 
 .choice {
@@ -16,6 +18,15 @@ body {
 	color: pink;
 	box-shadow: .2rem .3rem .5rem .1rem grey;
 }
+#choice_images {
+	display: flex;
+	flex-direction: row;
+}
+img {
+	max-width: 20rem;
+	max-height: 20rem;
+	margin: auto;
+}
 
 .game_view {
 	display: flex;
@@ -30,10 +41,19 @@ body {
 	display: flex;
 	background: yellowgreen;
 	margin: 1rem;
-	width: 8rem;
-	height: 3rem;
+	margin-left: 2rem;
+	width: 6rem;
+	height: 2rem;
 	align-items: center;
 	justify-content: center;
+}
+
+h2 {
+	margin-right: 4rem;
+}
+
+#hist_title {
+	margin-left: 4rem;
 }
 
 p {
@@ -48,9 +68,15 @@ p {
 	justify-content: flex-end;
 
 	margin: auto;
-	border: .1rem solid black;
 	max-width: 80%;
 	min-height: 1rem;
+}
+
+#gameScore {
+	display: flex;	
+	align-content: center;
+	align-items: center;
+	justify-content: center;
 }
 
 li {

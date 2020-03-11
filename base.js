@@ -2,6 +2,8 @@
 
 /* MODEL */
 
+const userImage = document.querySelector('#user_image');
+const compImage = document.querySelector('#comp_image');
 const reset = document.querySelector('#reset');
 let player_choice;
 let score = {player: 0, computer: 0, tie: 0};
@@ -19,10 +21,21 @@ function addWinnerLi(winner) {
 	scoreBody.appendChild(listItem);
 }
 
+function updateImages(userPick, compPick) {
+
+	let imgDestination = './images/' + userPick.toLowerCase() + '.svg';
+	userImage.setAttribute('src', imgDestination);
+
+	imgDestination = './images/' + compPick.toLowerCase() + '.svg';
+	compImage.setAttribute('src', imgDestination);
+}
+
 function clearScoreBoand() {
 	const scoreBody = document.querySelector('#winner_history');
 	const winner_list = document.querySelectorAll('.former_winner');
 	const scoreBoard = document.querySelector('#result');
+	
+	updateImages('no_image.here', 'no_image.here');
 
 	winner_list.forEach( li => scoreBody.removeChild(li));
 
@@ -90,6 +103,7 @@ function getGameWinner(userPick, compPick) {
 	// Ordered. Each loses to the next.
 	let nextIsBetter = ["Rock", "Paper", "Scissors", "Rock"];
 	
+	updateImages(userPick, compPick);
 	if (userPick === compPick) {
 		return "Tied";
 	}
@@ -117,11 +131,4 @@ function playGame(playerChoice, score) {
 	}
 
 	updateScoreBoard(result);
-}
-
-// Testing
-let plays = 30;
-while (plays > 0) {
-	plays--;
-	playGame('Rock', score);
 }
