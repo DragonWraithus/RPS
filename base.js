@@ -44,8 +44,6 @@ function clearScoreBoand() {
 
 function updateScoreBoard(result) {
 	const scoreBoard = document.querySelector('#result');
-	const winner = document.querySelector('#result');
-	winner.textContent = `${result} + wins!`;
 
 	scoreBoard.textContent = `
 		Player: ${score.player}\n
