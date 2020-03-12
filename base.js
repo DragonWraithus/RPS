@@ -10,7 +10,16 @@ const scoreBoard = document.querySelector('#result');
 const scoreHistory = document.querySelector('#winner_history');
 let gameLimit = document.querySelector('#limit_games');
 let player_choice;
-let score = {player: 0, computer: 0, tie: 0};
+let score = {
+	player: 0, 
+	computer: 0, 
+	tie: 0, 
+	reset: function() {
+		this.player = 0;
+		this.computer = 0;
+		this.tie = 0;
+	}
+};
 
 
 /* VIEW */
@@ -64,7 +73,7 @@ playButtons.forEach(choice_btn => {
 
 
 reset.addEventListener('click', () => {
-	score = {player: 0, computer: 0, tie: 0};
+	score.reset();
 	clearScoreBoard();
 });
 
@@ -128,14 +137,13 @@ function playGame(playerChoice, score) {
 
 	updateScoreBoard(result);
 
-	// BUGS: Does not clear score after victory or loss.
-	// * requires manual reset.
+	// Allows for unlimited gameplay, or play to a score the user can set.
 	if (gameLimit.checked && 
 		(score.computer >= gameCount.value ||
 		score.player >= gameCount.value)) 
 	{
 		let [comp, user] = [score.computer, score.player]
-		score = {player: 0, computer: 0, tie: 0};
+		score.reset();
 		clearScoreBoard();
 		scoreBoard.textContent = score.computer < score.player ?
 			`You win! ${user}-${comp}` : 
