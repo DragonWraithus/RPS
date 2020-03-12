@@ -2,13 +2,16 @@
 
 /* MODEL */
 
-const userImage = document.querySelector('#user_image');
-const compImage = document.querySelector('#comp_image');
-const reset = document.querySelector('#reset');
-const gameCount = document.querySelector('#game_count');
-const scoreBoard = document.querySelector('#result');
-const scoreHistory = document.querySelector('#winner_history');
-let gameLimit = document.querySelector('#limit_games');
+const pageItems = {
+	userImage: document.querySelector('#user_image'),
+	compImage: document.querySelector('#comp_image'),
+	reset: document.querySelector('#reset'),
+	scoreBoard: document.querySelector('#result'),
+	scoreHistory: document.querySelector('#winner_history'),
+	limitGames: document.querySelector('#limit_games'),
+	gameCount: document.querySelector('#game_count'),
+}
+
 let player_choice;
 let score = {
 	player: 0, 
@@ -30,29 +33,29 @@ function addWinnerLi(winner) {
 	listItem.textContent = `${winner}`;
 	listItem.setAttribute('class', 'former_winner');
 	listItem.setAttribute('id', winner);
-	scoreHistory.appendChild(listItem);
+	pageItems.scoreHistory.appendChild(listItem);
 }
 
 function updateImages(userPick, compPick) {
 	let imgDestination = './images/' + userPick.toLowerCase() + '.svg';
-	userImage.setAttribute('src', imgDestination);
+	pageItems.userImage.setAttribute('src', imgDestination);
 
 	imgDestination = './images/' + compPick.toLowerCase() + '.svg';
-	compImage.setAttribute('src', imgDestination);
+	pageItems.compImage.setAttribute('src', imgDestination);
 }
 
-function clearScoreBoard() {
+function writeScoreBoard(message) {
 	const winner_list = document.querySelectorAll('.former_winner');
 	
 	updateImages('no_image.here', 'no_image.here');
 
-	winner_list.forEach( li => scoreHistory.removeChild(li));
+	winner_list.forEach( li => pageItems.scoreHistory.removeChild(li));
 
-	scoreBoard.textContent = `All at zero!`;
+	pageItems.scoreBoard.textContent = message;
 }
 
 function updateScoreBoard(result) {
-	scoreBoard.textContent = `
+	pageItems.scoreBoard.textContent = `
 		Player: ${score.player}\n
 		Computer ${score.computer}\n
 		Ties: ${score.tie}`;
@@ -72,9 +75,9 @@ playButtons.forEach(choice_btn => {
 });
 
 
-reset.addEventListener('click', () => {
+pageItems.reset.addEventListener('click', () => {
 	score.reset();
-	clearScoreBoard();
+	writeScoreBoard('');
 });
 
 // return randomly: rock, paper, or scissors.
@@ -136,18 +139,23 @@ function playGame(playerChoice, score) {
 	}
 
 	updateScoreBoard(result);
+	finiteGame(score);
+}
 
-	// Allows for unlimited gameplay, or play to a score the user can set.
-	if (gameLimit.checked && 
-		(score.computer >= gameCount.value ||
-		score.player >= gameCount.value)) 
+/* Allows for unlimited gameplay, or play to a score the user can set. */
+function finiteGame(score) {
+	if (pageItems.limitGames.checked && 
+		(score.computer >= pageItems.gameCount.value ||
+		score.player >= pageItems.gameCount.value)) 
 	{
 		let [comp, user] = [score.computer, score.player]
 		score.reset();
-		clearScoreBoard();
-		scoreBoard.textContent = score.computer < score.player ?
-			`You win! ${user}-${comp}` : 
-			`You lose! ${comp}-${user}`;
-
+		if (comp > user) {
+			writeScoreBoard(`You lose! ${user}-${comp}`);
+		} else {
+			writeScoreBoard(`You win! ${user}-${comp}`);
+		}
 	}
+
+	// Possibly add a game mode for best of five.
 }
