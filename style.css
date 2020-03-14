@@ -2,6 +2,7 @@ body {
 	font-size: 16px;
 	display: flex;
 	flex-direction: column;
+	background-color: palegreen;
 }
 
 .choice {
@@ -22,6 +23,7 @@ body {
 	display: flex;
 	flex-direction: row;
 }
+
 img {
 	max-width: 20rem;
 	max-height: 20rem;
@@ -47,7 +49,6 @@ img {
 	align-items: center;
 	justify-content: center;
 }
-
 h2 {
 	margin-right: 4rem;
 }
@@ -99,7 +100,20 @@ li {
 	color: white;
 	background: grey;
 }
+#game_options {
+	display: flex;
+	align-self: center;
+	flex-wrap: wrap;
+	max-width: 15rem;
+	max-height: 8rem;
+	border: 1px solid white;
+}
 
+#game_options input {
+	max-height: 1.5rem;
+	margin-left: 1rem;
+	margin-top: .75rem;
+}
 #game_count {
 	max-width: 2rem;
 }
