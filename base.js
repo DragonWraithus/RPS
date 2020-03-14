@@ -56,8 +56,8 @@ function writeScoreBoard(message) {
 
 function updateScoreBoard(result) {
 	pageItems.scoreBoard.textContent = `
-		Player: ${score.player}\n
-		Computer ${score.computer}\n
+		Player: ${score.player} |\n
+		Computer ${score.computer} |\n
 		Ties: ${score.tie}`;
 
 	addWinnerLi(result);
