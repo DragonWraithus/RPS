@@ -69,6 +69,16 @@ function updateScoreBoard(result) {
 	addWinnerLi(result);
 }
 
+function disableInputOnUnlimited(e) {
+	if (pageItems.gameType.options.selectedIndex == 0) {
+		pageItems.gameCount.disabled = true;
+	} else {
+		pageItems.gameCount.disabled = false;
+	}
+}
+
+pageItems.gameType.addEventListener('click', disableInputOnUnlimited);
+
 /* CONTROLLER */
 
 // When choice is clicked, play a game.
