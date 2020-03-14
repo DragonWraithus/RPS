@@ -1,14 +1,15 @@
 "use strict";
-
+// TODO: 
+// * write tests.
 /* MODEL */
 
 const pageItems = {
 	userImage: document.querySelector('#user_image'),
 	compImage: document.querySelector('#comp_image'),
-	reset: document.querySelector('#reset'),
+	resetBtn: document.querySelector('#reset'),
 	scoreBoard: document.querySelector('#result'),
 	scoreHistory: document.querySelector('#winner_history'),
-	limitGames: document.querySelector('#limit_games'),
+	gameType: document.querySelector('#limit_game'),
 	gameCount: document.querySelector('#game_count'),
 }
 
@@ -17,10 +18,12 @@ let score = {
 	player: 0, 
 	computer: 0, 
 	tie: 0, 
+	gamesPlayed: 0,
 	reset: function() {
 		this.player = 0;
 		this.computer = 0;
 		this.tie = 0;
+		this.gamesPlayed = 0;
 	}
 };
 
@@ -44,17 +47,20 @@ function updateImages(userPick, compPick) {
 	pageItems.compImage.setAttribute('src', imgDestination);
 }
 
-function writeScoreBoard(message) {
-	const winner_list = document.querySelectorAll('.former_winner');
-	
-	updateImages('no_image.here', 'no_image.here');
-
-	winner_list.forEach( li => pageItems.scoreHistory.removeChild(li));
-
+function writeVictor(message, textColor='black') {	
 	pageItems.scoreBoard.textContent = message;
+	pageItems.scoreBoard.style.color = textColor;
+}
+
+function clearHistory() {
+	//updateImages('no_image.here', 'no_image.here');
+	
+	const winner_list = document.querySelectorAll('.former_winner');
+	winner_list.forEach( li => pageItems.scoreHistory.removeChild(li));
 }
 
 function updateScoreBoard(result) {
+	pageItems.scoreBoard.style.color = 'black';
 	pageItems.scoreBoard.textContent = `
 		Player: ${score.player} |\n
 		Computer ${score.computer} |\n
@@ -62,14 +68,6 @@ function updateScoreBoard(result) {
 
 	addWinnerLi(result);
 }
-
-pageItems.limitGames.addEventListener('click', () => {
-	if (pageItems.limitGames.checked == true) {
-		pageItems.gameCount.style.background = 'palegreen';
-	} else {
-		pageItems.gameCount.style.background = 'white';
-	}
-});
 
 /* CONTROLLER */
 
@@ -83,10 +81,12 @@ playButtons.forEach(choice_btn => {
 });
 
 
-pageItems.reset.addEventListener('click', () => {
+pageItems.resetBtn.addEventListener('click', () => {
 	score.reset();
-	writeScoreBoard('');
+	writeVictor('');
 });
+
+
 
 // return randomly: rock, paper, or scissors.
 function getComputerChoice() {
@@ -135,6 +135,8 @@ function getGameWinner(userPick, compPick) {
 }
 
 function playGame(playerChoice, score) {
+	if (score.gamesPlayed < 1) clearHistory();
+	score.gamesPlayed++;
 	let result = getGameWinner(playerChoice, getComputerChoice());
 
 	if (result === "Player") {
@@ -147,22 +149,50 @@ function playGame(playerChoice, score) {
 	}
 
 	updateScoreBoard(result);
-	finiteGame(score);
+	if (pageItems.gameType.options.selectedIndex != 0) {
+		finiteGame(score);
+	}
 }
 
 /* Allows for unlimited gameplay, or play to a score the user can set. */
 function finiteGame(score) {
-	if (pageItems.limitGames.checked && 
+	/* TODO: force gameCount value to have a number */
+	let board = {
+		message: '',
+		color: '',
+	};
+
+	// Play to specefied number of victories
+	if (pageItems.gameType.options.selectedIndex == 2 &&
 		(score.computer >= pageItems.gameCount.value ||
-		score.player >= pageItems.gameCount.value)) 
+		score.player >= pageItems.gameCount.value))
 	{
 		let [comp, user] = [score.computer, score.player]
 		score.reset();
-		if (comp > user) {
-			writeScoreBoard(`You lose! ${user}-${comp}`);
+		if (user > comp) {
+			board.message = `You win! ${user}-${comp}`;
+			board.color = 'palegreen';
 		} else {
-			writeScoreBoard(`You win! ${user}-${comp}`);
+			board.message = `You lose! ${user}-${comp}`;
+			board.color = 'palegreen';
 		}
+		writeVictor(board.message, board.color);
+	// Best of maximum games
+	} else if (pageItems.gameType.options.selectedIndex == 1 &&
+		pageItems.gameCount.value <= score.gamesPlayed) 
+	{
+		if (score.player > score.computer) {
+			board.message = `You win! ${score.player}-${score.computer}`;
+			board.color = 'palegreen';
+		} else if (score.player < score.computer) {
+			board.message = `You lose! ${score.player}-${score.computer}`;
+			board.color = 'orange';
+		} else {
+			board.message = `Perfect tie! ${score.player}-${score.computer}`;
+			board.color = 'pink';
+		}
+		score.reset();
+		writeVictor(board.message, board.color);
 	}
 
 	// Possibly add a game mode for best of five.

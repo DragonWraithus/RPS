@@ -107,10 +107,11 @@ li {
 	grid-template-columns: 50% 25% 25%;
 	align-self: center;
 	flex-wrap: wrap;
+	justify-content: space-around;
 	max-height: 8rem;
 	width: 30rem;
 }
-#game_options p {
+#game_options select, #game_options label{
 	grid-row-start: 2;
 }
 

@@ -15,8 +15,8 @@
 
 	<div id="choice_images">
 
-		<img id="user_image" src="" alt="Player's Choice">
-		<img id="comp_image" src="" alt="Computer's Choice">
+		<img id="user_image" src="images/choice.png" alt="Player's Choice">
+		<img id="comp_image" src="images/choice.png" alt="Computer's Choice">
 	</div>
 
 	<div id="gameScore">
@@ -30,10 +30,13 @@
 
 	<div id="game_options">
 		<h2>Options: </h2>
-		<p>Play by number of games won? </p>
-		<!-- Replace with select-->
-		<input type="checkbox" id="limit_games"></button>
-		<input type="text" id="game_count">
+		<label for="limit_game">Choose a game type:</label>
+		<select name="game_type" id="limit_game">
+			<option value="endless">Unlimited</option>
+			<option value="best_of" selected="selected">Best Of</option>
+			<option value="to_victory">Victories</option>
+		</select>
+		<input type="text" id="game_count" value="5">
 	</div>
 	<script src="base.js"></script>
 </body>
