@@ -63,6 +63,14 @@ function updateScoreBoard(result) {
 	addWinnerLi(result);
 }
 
+pageItems.limitGames.addEventListener('click', () => {
+	if (pageItems.limitGames.checked == true) {
+		pageItems.gameCount.style.background = 'palegreen';
+	} else {
+		pageItems.gameCount.style.background = 'white';
+	}
+});
+
 /* CONTROLLER */
 
 // When choice is clicked, play a game.

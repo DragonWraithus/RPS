@@ -102,16 +102,21 @@ li {
 }
 
 #game_options {
-	display: flex;
+	display: grid;
+	grid-template-rows: 50% 50%;
+	grid-template-columns: 50% 25% 25%;
 	align-self: center;
 	flex-wrap: wrap;
-	max-width: 15rem;
 	max-height: 8rem;
+	width: 30rem;
+}
+#game_options p {
+	grid-row-start: 2;
 }
 
 #game_options input {
+	grid-row-start: 2;
 	max-height: 1.5rem;
-	margin-left: 1rem;
 	margin-top: .75rem;
 }
 #game_count {
