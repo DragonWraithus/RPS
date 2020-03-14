@@ -1,8 +1,9 @@
 body {
 	font-size: 16px;
+	font-family: Arial, Helvetica, sans-serif;
 	display: flex;
 	flex-direction: column;
-	background-color: palegreen;
+	background-image: linear-gradient(to bottom right, rgb(197, 117, 131), rgb(95, 125, 189), #3d5b5f);
 }
 
 .choice {
@@ -15,9 +16,9 @@ body {
 	height: 3rem;
 	justify-content: space-around;
 	align-items: center;
-	background-color: indigo;
-	color: pink;
-	box-shadow: .2rem .3rem .5rem .1rem grey;
+	background-color: rgb(116, 172, 135);
+	color: rgb(18, 43, 18);
+	box-shadow: .2rem .3rem .5rem .1rem rgb(3, 122, 126);
 }
 #choice_images {
 	display: flex;
@@ -41,7 +42,7 @@ img {
 
 #reset {
 	display: flex;
-	background: yellowgreen;
+	background: rgb(116, 172, 135);
 	margin: 1rem;
 	margin-left: 2rem;
 	width: 6rem;
@@ -89,24 +90,23 @@ li {
 }
 
 #Player {
-	background: green;
+	background: palegreen;
 }
 
 #Computer {
-	background: red;
+	background: palevioletred;
 }
 
 #Nobody {
-	color: white;
-	background: grey;
+	background: lightgray;
 }
+
 #game_options {
 	display: flex;
 	align-self: center;
 	flex-wrap: wrap;
 	max-width: 15rem;
 	max-height: 8rem;
-	border: 1px solid white;
 }
 
 #game_options input {
